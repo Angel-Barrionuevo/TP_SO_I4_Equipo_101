@@ -1,25 +1,53 @@
-Pregunta:
-Responder dentro del archivo “respuesta_I4_EquipoX.txt”
 Apellido y nombre de los alumnos que participaron de la interacción
-A- ¿Qué color de fondo tiene su página en el TESTING ?
-B- ¿Qué color de fondo tiene su página en el DESARROLLO ?
-C- ¿Qué color de fondo tiene su página en el MASTER?
-D- ¿Qué favicon quedó en el MASTER el de ALFA o el de BETA?
-cambios al unísono:
+Integrantes:
+Schneider Ian (BETA)
+Barrionuevo Angel (GAMMA)
+Quinteros Gaston (ALFA)
 
-18-ALFA en TESTING en el archivo index.html agrega un <p>apellido nombre fecha y
-hora </p>
-19-BETA en TESTING en el archivo index.html agrega un <p>apellido nombre fecha y
-hora </p>
-20-GAMMA en TESTING en el archivo index.html agrega un <p>apellido nombre fecha y
-hora </p>
-21- hacen los PUSH en el siguiente orden
-primero ALFA , despues BETA y por último GAMMA
+A- ¿Qué color de fondo tiene su página en el TESTING ?
+El último color en TESTING es BLUE
+
+B- ¿Qué color de fondo tiene su página en el DESARROLLO ?
+El último color en DESARROLLO es YELLOW
+
+C- ¿Qué color de fondo tiene su página en el MASTER?
+El color en MASTER es BLUE. El merge de TESTING (BLUE) generó conflicto con YELLOW,
+quedando el que GAMMA resolvió manualmente.
+
+D- ¿Qué favicon quedó en el MASTER el de ALFA o el de BETA?
+Quedó el de BETA
+
 Pregunta:
 E- ¿Algún integrante tuvo problemas al hacer el push?
+Sí, BETA y GAMMA tuvieron problemas al hacer el push
+
 F- ¿Qué problemas surgieron?
+Como ALFA pusheó primero, el remoto quedó con cambios que BETA y GAMMA 
+no tenían en su versión local. Cuando intentaron hacer push, Git lo 
+rechazó porque su rama local estaba desactualizada respecto al remoto.
+
 G- ¿Qué soluciones pueden aplicar y cual seria la consecuencia de cada solución
 adoptada?
+Solución 1 - git pull + resolver conflictos + git push:
+  Cada uno hace git pull origin TESTING, resuelve los conflictos 
+  manualmente en index.html, y luego hace git push. 
+  Consecuencia: se conservan todos los cambios de todos, pero hay 
+  que resolver conflictos a mano.
+
 H- ¿Qué sucede si cada uno utiliza el push -f?
+El último en ejecutar el push -f gana y sobreescribe todo lo anterior.
+Es decir, en el MASTER solo quedaría el <p> de GAMMA, perdiéndose 
+los <p> de ALFA y BETA completamente.
+
 I- ¿Qué debo hacer para que el index.html tengas todos los <p> de los puntos 18,19 y 20
 en DESARROLLO ?
+Primero hay que asegurarse de que TESTING tenga los tres <p> resueltos 
+sin conflictos.
+
+git checkout DESARROLLO
+git pull origin DESARROLLO
+git merge TESTING
+# Resolver conflictos si los hay, conservando los tres <p>
+git add index.html
+git commit -m "Merge TESTING a DESARROLLO con los tres p"
+git push origin DESARROLLO
